@@ -43,7 +43,7 @@ close OUT;
 sub slim_info{
 	my $inf = shift @_;
 	#
-	return "." if($inf eq ".");
+	#return "." if($inf eq ".");
 	# per-base coverage depth, combined across samples
 	my $dp = $1 if($$inf=~m/\bDP=(\S+?)[;\t]/);
 	# Allele count in genotype, for each ALT allele
@@ -51,7 +51,11 @@ sub slim_info{
 	# Allele frequency in genotype, for each ALT allele
 	my $af = $1 if($$inf=~m/\bAF=(\S+?)[;\t]/);
 	#
-	my $new="DP=$dp;AC=$ac;AF=$af;";	
+	my $new=".";
+	$new ="DP=$dp;" if(defined $dp);
+	$new.="AC=$ac;" if(defined $ac);
+	$new.="AF=$af;" if(defined $ac);
+	#my $new="DP=$dp;AC=$ac;AF=$af;";
 	return $new;
 }
 
