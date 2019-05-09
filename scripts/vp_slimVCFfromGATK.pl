@@ -42,6 +42,8 @@ close OUT;
 # functions
 sub slim_info{
 	my $inf = shift @_;
+	#
+	return "." if($inf eq ".");
 	# per-base coverage depth, combined across samples
 	my $dp = $1 if($$inf=~m/\bDP=(\S+?)[;\t]/);
 	# Allele count in genotype, for each ALT allele
