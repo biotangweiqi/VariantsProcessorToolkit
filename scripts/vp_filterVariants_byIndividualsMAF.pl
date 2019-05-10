@@ -1,7 +1,8 @@
 #!/usr/bin/perl
 # pick proper marker
 # biotang
-# 2016.8.1
+# 2019.5.10
+# version: 1.1.5
 use strict;
 use warnings;
 use File::Basename;
