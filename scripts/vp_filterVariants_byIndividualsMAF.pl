@@ -38,7 +38,7 @@ $LOWER_DP = $CONF{'lower-dp'} if(exists $CONF{'lower-dp'});
 $UPPER_DP = $CONF{'upper-dp'} if(exists $CONF{'upper-dp'});
 
 # check required parameters
-die "Configure Error: 'individuals-maf' not defined\n" if(not exists $CONF{'individuals-maf'});
+die "Configure Error: 'individuals-maf' and 'individuals-maf-reverse' not defined\n" if(not exists $CONF{'individuals-maf'} and not exists $CONF{'individuals-maf-reverse'});
 
 ####################################################
 # main, read and write
@@ -86,9 +86,9 @@ while(<FILE>){
 	my $maf = 0;
 	$maf = $af[1] if(scalar values %allele_freq >= 2);
 	#
-	if(defined $CONF{'individuals-maf-reverse'} and $CONF{'individuals-maf-reverse'} eq "TRUE"){
-		next if($maf > $CONF{'individuals-maf'});
-	} else{
+	if(defined $CONF{'individuals-maf-reverse'}){
+		next if($maf >= $CONF{'individuals-maf-reverse'});
+	} elsif(defined $CONF{'individuals-maf'}){
 		next if($maf <= $CONF{'individuals-maf'});
 	}
 	# output
@@ -104,7 +104,7 @@ sub read_conf{
 	# read configure file
 	my $file_conf = shift @_;
 	my %CONF = ();
-	print "read $file_conf\n";
+	#print "read $file_conf\n";
 	open CONF, "<", $file_conf or die "";
 	while(<CONF>){
 		chomp ;
