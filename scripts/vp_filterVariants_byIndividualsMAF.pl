@@ -82,11 +82,15 @@ while(<FILE>){
 	my %allele_freq  = &calculate_individuals_af(\%sam_tag, \@POPULATION, $num_allele);
 
 	#
-	my @af = sort {$b <=> $a} %allele_freq;
+	my @af = sort {$b <=> $a} values %allele_freq;
 	my $maf = 0;
 	$maf = $af[1] if(scalar values %allele_freq >= 2);
-	next if($maf <= $CONF{'individuals-maf'});
-
+	#
+	if(defined $CONF{'individuals-maf-reverse'} and $CONF{'individuals-maf-reverse'} eq "TRUE"){
+		next if($maf > $CONF{'individuals-maf'});
+	} else{
+		next if($maf <= $CONF{'individuals-maf'});
+	}
 	# output
 	print OUT "$_\n";
 }
