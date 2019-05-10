@@ -84,7 +84,7 @@ while(<FILE>){
 	#
 	my @af = sort {$b <=> $a} %allele_freq;
 	my $maf = 0;
-	$maf = $af[1] if(scalar values %allele_freq < 2);
+	$maf = $af[1] if(scalar values %allele_freq >= 2);
 	next if($maf <= $CONF{'individuals-maf'});
 
 	# output
