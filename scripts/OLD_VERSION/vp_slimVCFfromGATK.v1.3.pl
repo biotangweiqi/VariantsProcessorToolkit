@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # author: biotang
-# version: 1.5
-# 2019.06.29
+# version: 1.3
+# 2019.05.04
 use strict;
 use warnings;
 use 5.010;
@@ -30,7 +30,7 @@ while(<FILE>){
 	}
 	#
 	my ($chr,$loc,$id,$ref,$alt,$qual,$flt,$inf,$tag,@samples) = (split /\t/, $_);
-	my $new_inf=".";#&slim_info(\$inf);
+	my $new_inf=&slim_info(\$inf);
 	my $new_tag="GT:DP:AD";
 	my $new_samples=&slim_tag(\$tag,\@samples);
 	print OUT "$chr\t$loc\t$id\t$ref\t$alt\t$qual\t$flt\t$new_inf\t".
